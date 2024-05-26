@@ -30,9 +30,9 @@ The Collector is a casual but active Destiny 2 player who enjoys collecting and 
 
 
 
-## User Story
+### User Story
 
-### Journey
+#### Journey
 
 - Launches game and loads into overworld
 
@@ -46,7 +46,7 @@ The Collector is a casual but active Destiny 2 player who enjoys collecting and 
 
 
 
-### Friction Points & Resolutions
+#### Friction Points & Resolutions
 
 - Changing Gear - The Collector often forgets which items in the loadout are best for each mission type and takes upwards of 10 minutes searching through an expansive inventory to find the correct pieces.
 
@@ -60,9 +60,9 @@ The Collector is a casual but active Destiny 2 player who enjoys collecting and 
 
 
 
-## The App
+### The App
 
-### Tasks
+#### Tasks
 
 - Account access
 
@@ -136,9 +136,9 @@ The Theorycrafter is a veteran Destiny player that enjoys buildcrafting and chas
 
 
 
-## User Story
+### User Story
 
-### Journey
+#### Journey
 
 - Logs into the game and accesses their Bungie.net account to sync their inventory.
 
@@ -152,7 +152,7 @@ The Theorycrafter is a veteran Destiny player that enjoys buildcrafting and chas
 
 
 
-### Friction Points & Resolutions
+#### Friction Points & Resolutions
 
 - Weapon Perks Overview: The Theorycrafter often finds it challenging to know what perks each weapon can drop with or be crafted with.
 
@@ -166,9 +166,9 @@ The Theorycrafter is a veteran Destiny player that enjoys buildcrafting and chas
 
 - Resolution: The app will auto-generate armor loadouts based on existing stats, prioritized stats, and an exotic armor filter.
 
-## The App
+### The App
 
-### Tasks
+#### Tasks
 
 - Account Access:
 
