@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "mocha",
-    "start": "node server.js"
+    "start": "node test.js"
   },
   "keywords": [],
   "author": "Yifu-Jensen Dong",
@@ -22,7 +22,10 @@
     "method-override": "^3.0.0",
     "mongodb": "^6.6.2",
     "mongoose": "^8.4.0",
+    "node-destiny-2": "^0.2.9",
     "passport": "^0.7.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sqlite3": "^5.1.7",
+    "xhr2": "^0.2.1"
   }
 }
