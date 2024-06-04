@@ -21,15 +21,10 @@ app.use(express.static(__dirname + '/public'))
 })) */
 app.use(express.json())
 
-// sqlite3 and manifest testing
-/* const sqlite3 = require('sqlite3').verbose()
-module.exports = {
-    
-} */
 
 // Routes
 app.get('/', (req, res) => {
-    axios.get('https://www.bungie.net/Platform/Destiny2/Manifest/', {
+    /* axios.get('https://www.bungie.net/Platform/Destiny2/Manifest/', {
         headers: {
             'X-API-Key': apiKey
         }
@@ -39,7 +34,7 @@ app.get('/', (req, res) => {
     })
     .catch(error => {
         console.log('----- ERROR in GET / route -----\n', error)
-    })
+    }) */
     /* axios.get('https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018471017987/LinkedProfiles/', {
         headers: {
             'X-API-Key': apiKey
@@ -54,6 +49,13 @@ app.get('/', (req, res) => {
     /* destiny.getProfile(3, '4611686018471017987', [200])
     .then(response => res.send(response.data))
     .catch(err => console.log(`Error: ${err}`)) */
+    axios.get('https://cdn.jsdelivr.net/gh/altbdoor/d2-api-human@data/weapons/name/themountaintop.json')
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(error => {
+        console.log('----- ERROR in GET / route -----\n', error)
+    })
 })
 
 mongoose.connect(process.env.MONGO_URI)

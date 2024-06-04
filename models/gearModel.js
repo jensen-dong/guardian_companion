@@ -7,20 +7,16 @@ const gearSchema = new Schema({
         type: String,
         required: true
     },
+    id: {
+        type: Number,
+        required: true
+    },
     icon: {
         type: String,
         required: true
     },
-    itemType: {
+    watermark: {
         type: String,
-        required: true
-    },
-    flavorTest: {
-        type: String,
-        required: true
-    },
-    stats: {
-        type: Object,
         required: true
     }
 }, { timestamps: true })
