@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 const Destiny2API = require('node-destiny-2')
 const apiKey = "73236e74cb434ad595726d3d36ab0aff";
 
-
 const destiny = new Destiny2API({
     key: apiKey
 });
@@ -22,11 +21,26 @@ app.use(express.static(__dirname + '/public'))
 })) */
 app.use(express.json())
 
-
+// sqlite3 and manifest testing
+/* const sqlite3 = require('sqlite3').verbose()
+module.exports = {
+    
+} */
 
 // Routes
 app.get('/', (req, res) => {
-    /* axios.get('https://www.bungie.net/Platform/Destiny2/Manifest/', {
+    axios.get('https://www.bungie.net/Platform/Destiny2/Manifest/', {
+        headers: {
+            'X-API-Key': apiKey
+        }
+    })
+    .then(response => {
+        res.send(response.data)
+    })
+    .catch(error => {
+        console.log('----- ERROR in GET / route -----\n', error)
+    })
+    /* axios.get('https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018471017987/LinkedProfiles/', {
         headers: {
             'X-API-Key': apiKey
         }
@@ -37,17 +51,6 @@ app.get('/', (req, res) => {
     .catch(error => {
         console.log('----- ERROR in GET / route -----\n', error)
     }) */
-    axios.get('https://www.bungie.net/Platform/Destiny2/3/Profile/4611686018471017987/LinkedProfiles/', {
-        headers: {
-            'X-API-Key': apiKey
-        }
-    })
-    .then(response => {
-        res.send(response.data)
-    })
-    .catch(error => {
-        console.log('----- ERROR in GET / route -----\n', error)
-    })
     /* destiny.getProfile(3, '4611686018471017987', [200])
     .then(response => res.send(response.data))
     .catch(err => console.log(`Error: ${err}`)) */
