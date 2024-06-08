@@ -51,7 +51,7 @@
             <div class="card-buttons">
               <a class="btn btn-sm btn-info" href="/api/destiny/<%= weapon.hash %>">Details</a>
               <button class="btn btn-sm btn-warning" onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Favorites</button>
-              <button class="btn btn-sm btn-success" onclick="addToLoadouts('<%= weapon.name %>')">Loadouts</button>
+              <button class="btn btn-sm btn-success" onclick="addToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Loadout</button>
             </div>
             <% if (weapon.icon) { %>
               <img src="https://www.bungie.net<%= weapon.icon %>" class="card-img-top weapon-icon" alt="<%= weapon.name %>">

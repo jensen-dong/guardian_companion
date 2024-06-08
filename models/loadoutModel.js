@@ -7,26 +7,88 @@ const loadoutSchema = new Schema({
         type: String,
         required: true
     },
-    subclass: {
-        type: Number,
-        required: true
-    },
     icon: {
         type: String,
         required: true
     },
     gear: {
         kinetic: {
-            type: String,
-            required: true
+            name: {
+                type: String,
+                required: true
+            },
+            hash: {
+                type: Number,
+                required: true
+            },
+            loreHash: {
+                type: Number,
+                required: true
+            },
+            icon: {
+                type: String,
+                required: true
+            },
+            weaponType: {
+                type: String,
+                required: true
+            },
+            ammoType: {
+                type: Number,
+                required: true
+            }
         },
         energy: {
-            type: String,
-            required: true
+            name: {
+                type: String,
+                required: true
+            },
+            hash: {
+                type: Number,
+                required: true
+            },
+            loreHash: {
+                type: Number,
+                required: true
+            },
+            icon: {
+                type: String,
+                required: true
+            },
+            weaponType: {
+                type: String,
+                required: true
+            },
+            ammoType: {
+                type: Number,
+                required: true
+            }
         }, 
         heavy: {
-            type: String,
-            required: true
+            name: {
+                type: String,
+                required: true
+            },
+            hash: {
+                type: Number,
+                required: true
+            },
+            loreHash: {
+                type: Number,
+                required: true
+            },
+            icon: {
+                type: String,
+                required: true
+            },
+            weaponType: {
+                type: String,
+                required: true
+            },
+            ammoType: {
+                type: Number,
+                required: true
+            }
         }
     }
 }, { timestamps: true })

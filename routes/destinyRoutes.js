@@ -6,14 +6,14 @@ const {
     deleteWeapon,
     updateWeapon,
     createFavorite,
-    /* getBungieAcc,
     getLoadouts,
+    createLoadout
+    /* getBungieAcc,
     getLoadout,
     getFavorites,
     getProfile,
     getCharacter,
     getInventory,
-    createLoadout,
     deleteLoadout,
     updateLoadout */
  } = require('../controllers/destinyController')
@@ -30,7 +30,7 @@ router.get('/', getWeapons)
 router.get('/:id', getWeapon)
 
 // GET all loadouts
-//router.get('/loadouts', getLoadouts)
+router.get('/loadouts', getLoadouts)
 
 // GET single loadout
 //router.get('/loadouts/:id', getLoadout)
@@ -51,7 +51,7 @@ router.get('/:id', getWeapon)
 router.post('/', createWeapon)
 
 // POST new loadout
-//router.post('/loadouts', createLoadout)
+router.post('/loadouts', createLoadout)
 
 // POST new favorites
 router.post('/favorites', createFavorite)

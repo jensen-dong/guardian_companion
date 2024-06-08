@@ -1,4 +1,5 @@
 const Weapon = require('../models/weaponModel')
+const Loadout = require('../models/loadoutModel');
 const mongoose = require('mongoose')
 const fs = require('fs');
 const path = require('path');
@@ -156,6 +157,23 @@ const updateWeapon = async (req, res) => {
     res.status(200).json(weapon)
 }
 
+// Get all loadouts
+const getLoadouts = async (req, res) => {
+    const loadouts = await Loadout.find({});
+    res.render('loadouts', { loadouts });
+};
+
+// Create a new loadout
+const createLoadout = async (req, res) => {
+    const { name, gear } = req.body;
+    try {
+        const loadout = new Loadout({ name, gear });
+        await loadout.save();
+        res.status(200).json(loadout);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
 
 
 module.exports = {
@@ -164,15 +182,15 @@ module.exports = {
     getWeapon,
     deleteWeapon,
     updateWeapon,
-    createFavorite
-    /* getBungieAcc,
+    createFavorite,
     getLoadouts,
+    createLoadout
+    /* getBungieAcc,
     getLoadout,
     getFavorites,
     getProfile,
     getCharacter,
     getInventory,
-    createLoadout,
     deleteLoadout,
     updateLoadout */
 }
