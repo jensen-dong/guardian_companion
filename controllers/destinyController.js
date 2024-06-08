@@ -159,19 +159,44 @@ const updateWeapon = async (req, res) => {
 
 // Get all loadouts
 const getLoadouts = async (req, res) => {
-    const loadouts = await Loadout.find({});
-    res.render('loadouts', { loadouts });
+    try {
+        const loadouts = await Loadout.find({});
+        res.render('loadouts', { loadouts });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 };
+
 
 // Create a new loadout
 const createLoadout = async (req, res) => {
     const { name, gear } = req.body;
+    
+    if (!gear.kinetic && !gear.energy) {
+        return res.status(400).json({ error: 'Loadout must include at least one primary or special weapon.' });
+    }
+    
+    if (!gear.heavy) {
+        return res.status(400).json({ error: 'Loadout must include one heavy weapon.' });
+    }
+
     try {
         const loadout = new Loadout({ name, gear });
         await loadout.save();
         res.status(200).json(loadout);
     } catch (error) {
         res.status(400).json({ error: error.message });
+    }
+};
+
+// get favorites
+const getFavorites = async (req, res) => {
+    try {
+        const favorites = await Weapon.find({});
+        console.log(favorites)
+        res.render('favorites', { weaponsArr: favorites });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -184,10 +209,10 @@ module.exports = {
     updateWeapon,
     createFavorite,
     getLoadouts,
-    createLoadout
+    createLoadout,
+    getFavorites
     /* getBungieAcc,
     getLoadout,
-    getFavorites,
     getProfile,
     getCharacter,
     getInventory,

@@ -47,23 +47,43 @@ document.getElementById('search-button').addEventListener('click', function() {
     });
   }
   
-  function addToLoadout(name, hash, loreHash, icon, weaponType, ammoType) {
-    const loadoutName = prompt('Enter the name of the loadout:');
-    if (!loadoutName) return;
+  let loadout = {
+    name: '',
+    gear: {
+        kinetic: null,
+        energy: null,
+        heavy: null
+    }
+};
 
-    const gearType = prompt('Enter the gear type (kinetic, energy, heavy):').toLowerCase();
+function addWeaponToLoadout(name, hash, loreHash, icon, weaponType, ammoType) {
+    if (!loadout.name) {
+        loadout.name = prompt('Enter the name of the loadout:');
+        if (!loadout.name) return;
+    }
+
+    let gearType = prompt('Enter the gear type (kinetic, energy, heavy):').toLowerCase();
     if (!['kinetic', 'energy', 'heavy'].includes(gearType)) {
         alert('Invalid gear type');
         return;
     }
 
-    const loadout = {
-        name: loadoutName,
-        gear: {}
-    };
+    if (loadout.gear[gearType]) {
+        alert(`You already have a ${gearType} weapon in the loadout.`);
+        return;
+    }
 
     loadout.gear[gearType] = { name, hash, loreHash, icon, weaponType, ammoType };
 
+    const weaponsInLoadout = Object.values(loadout.gear).filter(Boolean).length;
+    if (weaponsInLoadout === 3) {
+        submitLoadout();
+    } else {
+        alert(`Weapon added to loadout. ${3 - weaponsInLoadout} more to go.`);
+    }
+}
+
+function submitLoadout() {
     fetch('/api/destiny/loadouts', {
         method: 'POST',
         headers: {
@@ -76,7 +96,15 @@ document.getElementById('search-button').addEventListener('click', function() {
         if (data.error) {
             alert('Error adding to loadout: ' + data.error);
         } else {
-            alert('Weapon added to loadout');
+            alert('Loadout created successfully');
+            loadout = {
+                name: '',
+                gear: {
+                    kinetic: null,
+                    energy: null,
+                    heavy: null
+                }
+            };
         }
     })
     .catch(error => {

@@ -23,7 +23,7 @@
             <a class="nav-link" href="/api/destiny/favorites">Favorites</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/loadouts">Loadouts</a>
+            <a class="nav-link" href="/api/destiny/loadouts">Loadouts</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -64,7 +64,7 @@
         <p><%= loreDescription %></p>
         <div class="mt-4">
           <button class="btn btn-warning" onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add to Favorites</button>
-          <button class="btn btn-success" onclick="addToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add to Loadout</button>
+          <button class="btn btn-success" onclick="addWeaponToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add to Loadout</button>
         </div>
       </div>
     </div>

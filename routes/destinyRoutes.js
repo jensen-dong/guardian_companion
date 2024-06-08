@@ -7,10 +7,10 @@ const {
     updateWeapon,
     createFavorite,
     getLoadouts,
-    createLoadout
+    createLoadout,
+    getFavorites
     /* getBungieAcc,
     getLoadout,
-    getFavorites,
     getProfile,
     getCharacter,
     getInventory,
@@ -36,7 +36,7 @@ router.get('/loadouts', getLoadouts)
 //router.get('/loadouts/:id', getLoadout)
 
 // GET favorite weapons
-//router.get('/favorites', getFavorites)
+router.get('/favorites', getFavorites)
 
 // GET profile info
 //router.get('profile', getProfile)
