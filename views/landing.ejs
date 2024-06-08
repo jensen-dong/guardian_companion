@@ -50,25 +50,25 @@
           <div class="card h-100">
             <div class="card-buttons">
               <a class="btn btn-sm btn-info" href="/api/destiny/<%= weapon.hash %>">Details</a>
-              <button class="btn btn-sm btn-warning" onclick="addToFavorites('<%= weapon.displayProperties.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.displayProperties.icon %>', '<%= weapon.itemTypeDisplayName %>', '<%= weapon.equippingBlock.ammoType %>')">Favorites</button>
-              <button class="btn btn-sm btn-success" onclick="addToLoadouts('<%= weapon.displayProperties.name %>')">Loadouts</button>
+              <button class="btn btn-sm btn-warning" onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Favorites</button>
+              <button class="btn btn-sm btn-success" onclick="addToLoadouts('<%= weapon.name %>')">Loadouts</button>
             </div>
-            <% if (weapon.displayProperties && weapon.displayProperties.icon) { %>
-              <img src="https://www.bungie.net<%= weapon.displayProperties.icon %>" class="card-img-top weapon-icon" alt="<%= weapon.displayProperties.name %>">
+            <% if (weapon.icon) { %>
+              <img src="https://www.bungie.net<%= weapon.icon %>" class="card-img-top weapon-icon" alt="<%= weapon.name %>">
             <% } %>
             <div class="card-body">
-              <% if (weapon.displayProperties && weapon.displayProperties.name) { %>
-                <h4 class="card-title weapon-name"><%= weapon.displayProperties.name %></h4>
+              <% if (weapon.name) { %>
+                <h4 class="card-title weapon-name"><%= weapon.name %></h4>
               <% } %>
-              <% if (weapon.itemTypeDisplayName) { %>
-                <h5 class="card-title">Weapon Type: <%= weapon.itemTypeDisplayName %></h5>
+              <% if (weapon.weaponType) { %>
+                <h5 class="card-title">Weapon Type: <%= weapon.weaponType %></h5>
               <% } %>
               <p class="card-text">Ammo: 
-                <% if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 1) { %>
+                <% if (weapon.ammoType === 1) { %>
                   Primary
-                <% } else if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 2) { %>
+                <% } else if (weapon.ammoType === 2) { %>
                   Special
-                <% } else if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 3) { %>
+                <% } else if (weapon.ammoType === 3) { %>
                   Heavy
                 <% } else { %>
                   Unknown
