@@ -12,7 +12,8 @@ const weaponSchema = new Schema({
         required: true
     },
     loreHash: {
-        type: Number
+        type: Number,
+        required: true
     },
     icon: {
         type: String,
