@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weapons Display</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">WeaponApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/favorites">Favorites</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/loadouts">Loadouts</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="container mt-4">
+    <div class="row mb-3">
+      <div class="col">
+        <input type="text" id="search-bar" class="form-control" placeholder="Search for a weapon...">
+      </div>
+      <div class="col-auto">
+        <button id="search-button" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+    <div class="row" id="weapons-container">
+      <% weaponsArr.forEach((weapon, index) => { %>
+        <div class="col-md-3 mb-4 weapon-card position-relative">
+          <div class="card h-100">
+            <div class="card-buttons">
+              <a class="btn btn-sm btn-info" href="/api/destiny/<%= weapon.hash %>">Details</a>
+              <button class="btn btn-sm btn-warning" onclick="addToFavorites('<%= weapon.displayProperties.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.displayProperties.icon %>', '<%= weapon.itemTypeDisplayName %>', '<%= weapon.equippingBlock.ammoType %>')">Favorites</button>
+              <button class="btn btn-sm btn-success" onclick="addToLoadouts('<%= weapon.displayProperties.name %>')">Loadouts</button>
+            </div>
+            <% if (weapon.displayProperties && weapon.displayProperties.icon) { %>
+              <img src="https://www.bungie.net<%= weapon.displayProperties.icon %>" class="card-img-top weapon-icon" alt="<%= weapon.displayProperties.name %>">
+            <% } %>
+            <div class="card-body">
+              <% if (weapon.displayProperties && weapon.displayProperties.name) { %>
+                <h4 class="card-title weapon-name"><%= weapon.displayProperties.name %></h4>
+              <% } %>
+              <% if (weapon.itemTypeDisplayName) { %>
+                <h5 class="card-title">Weapon Type: <%= weapon.itemTypeDisplayName %></h5>
+              <% } %>
+              <p class="card-text">Ammo: 
+                <% if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 1) { %>
+                  Primary
+                <% } else if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 2) { %>
+                  Special
+                <% } else if (weapon.equippingBlock && weapon.equippingBlock.ammoType === 3) { %>
+                  Heavy
+                <% } else { %>
+                  Unknown
+                <% } %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% if ((index + 1) % 4 === 0) { %>
+          </div><div class="row">
+        <% } %>
+      <% }); %>
+    </div>
+    <script id="weapons-data" type="application/json"><%= JSON.stringify(weaponsArr) %></script>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="/scripts/script.js"></script>
+</body>
+</html>

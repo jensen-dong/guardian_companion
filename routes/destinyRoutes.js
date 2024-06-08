@@ -1,27 +1,71 @@
 const express = require('express')
 const { 
-    createWorkout,
-    getWorkouts,
-    getWorkout,
-    deleteWorkout,
-    updateWorkout
+    createWeapon,
+    getWeapons,
+    getWeapon,
+    deleteWeapon,
+    updateWeapon,
+    createFavorite,
+    /* getBungieAcc,
+    getLoadouts,
+    getLoadout,
+    getFavorites,
+    getProfile,
+    getCharacter,
+    getInventory,
+    createLoadout,
+    deleteLoadout,
+    updateLoadout */
  } = require('../controllers/destinyController')
 
 const router = express.Router()
 
-// GET all workouts
-router.get('/', getWorkouts)
+// GET Bungie login
+// router.get('/bungieacc', getBungieAcc)
 
-// GET single workout
-router.get('/:id', getWorkout)
+// GET all weapons
+router.get('/', getWeapons)
 
-// POST new workout
-router.post('/', createWorkout)
+// GET single Weapon
+router.get('/:id', getWeapon)
 
-// DELETE a workout
-router.delete('/:id', deleteWorkout)
+// GET all loadouts
+//router.get('/loadouts', getLoadouts)
 
-// UPDATE a workout
-router.patch('/:id', updateWorkout)
+// GET single loadout
+//router.get('/loadouts/:id', getLoadout)
+
+// GET favorite weapons
+//router.get('/favorites', getFavorites)
+
+// GET profile info
+//router.get('profile', getProfile)
+
+// GET character loadout
+//router.get('profile/:id', getCharacter)
+
+// GET character inventory
+//router.get('profile/:id/inv', getInventory)
+
+// POST new Weapon
+router.post('/', createWeapon)
+
+// POST new loadout
+//router.post('/loadouts', createLoadout)
+
+// POST new favorites
+router.post('/favorites', createFavorite)
+
+// DELETE a Weapon
+router.delete('/:id', deleteWeapon)
+
+// DELETE a loadout
+//router.delete('/:id', deleteLoadout)
+
+// UPDATE a Weapon
+router.put('/:id', updateWeapon)
+
+// UPDATE a loadout
+//router.put('/:id', updateLoadout)
 
 module.exports = router
