@@ -1,3 +1,17 @@
+document.getElementById('search-button').addEventListener('click', function() {
+    const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+    const weaponCards = document.querySelectorAll('.weapon-card');
+
+    weaponCards.forEach(card => {
+        const weaponName = card.querySelector('.card-title').textContent.toLowerCase();
+        if (weaponName.includes(searchQuery)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
 let loadout = {
     name: '',
     gear: {
