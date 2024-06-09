@@ -1,53 +1,4 @@
-document.getElementById('search-button').addEventListener('click', function() {
-    const searchQuery = document.getElementById('search-bar').value.toLowerCase();
-    const weaponCards = document.querySelectorAll('.weapon-card');
-  
-    weaponCards.forEach(card => {
-      const weaponName = card.querySelector('.weapon-name').textContent.toLowerCase();
-      if (weaponName.includes(searchQuery)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-  
-  // Ensure all weapon cards are displayed initially
-  document.addEventListener('DOMContentLoaded', () => {
-    const weaponCards = document.querySelectorAll('.weapon-card');
-    weaponCards.forEach(card => {
-      card.style.display = 'block';
-    });
-  });
-  
-  // Function to handle menu button clicks
-  function addToFavorites(name, hash, loreHash, icon, weaponType, ammoType) {
-    const weaponData = {
-      name,
-      hash,
-      loreHash,
-      icon,
-      weaponType,
-      ammoType
-    };
-  
-    fetch('/api/destiny/favorites', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(weaponData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert(`Added ${name} to favorites`);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  }
-  
-  let loadout = {
+let loadout = {
     name: '',
     gear: {
         kinetic: null,
@@ -62,9 +13,18 @@ function addWeaponToLoadout(name, hash, loreHash, icon, weaponType, ammoType) {
         if (!loadout.name) return;
     }
 
-    let gearType = prompt('Enter the gear type (kinetic, energy, heavy):').toLowerCase();
-    if (!['kinetic', 'energy', 'heavy'].includes(gearType)) {
-        alert('Invalid gear type');
+    let gearType;
+
+    if (ammoType === 3) {
+        gearType = 'heavy';
+    } else if (ammoType === 1 || ammoType === 2) {
+        gearType = prompt('Enter the gear type (kinetic, energy):').toLowerCase();
+        if (!['kinetic', 'energy'].includes(gearType)) {
+            alert('Invalid gear type');
+            return;
+        }
+    } else {
+        alert('Invalid ammo type');
         return;
     }
 
@@ -110,4 +70,40 @@ function submitLoadout() {
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+function removeFromFavorites(id) {
+    fetch(`/api/destiny/favorites/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error removing favorite: ' + data.error);
+        } else {
+            alert('Favorite removed successfully');
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function removeLoadout(id) {
+    fetch(`/api/destiny/loadouts/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error removing loadout: ' + data.error);
+        } else {
+            alert('Loadout removed successfully');
+            location.reload();
+            }
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            });
 }

@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    /* phone: {
+    phone: {
         type: String,
         validate: {
             validator: function(v) {
@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number`
         },
         required: [true, 'Your phone number is required']
-    } */
+    }
 }, { timestamps : true })
 
 userSchema.pre('save', function(next) {

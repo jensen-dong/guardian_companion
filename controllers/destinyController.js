@@ -1,6 +1,6 @@
-const Weapon = require('../models/weaponModel')
+const Weapon = require('../models/weaponModel');
 const Loadout = require('../models/loadoutModel');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,10 +13,9 @@ const getWeapons = (req, res) => {
             console.error('Error reading manifest.json:', err);
             return res.status(500).json({ error: 'Failed to read manifest.json' });
         }
-        
+
         try {
             const manifest = JSON.parse(data);
-            // Filter to include only weapons with the key damageTypes and loreHash
             const weaponsArr = Object.entries(manifest)
                 .filter(([key, weapon]) => weapon.damageTypes && weapon.loreHash)
                 .map(([key, weapon]) => ({
@@ -41,7 +40,7 @@ const getWeapons = (req, res) => {
 
 // get single weapon
 const getWeapon = (req, res) => {
-    const { id } = req.params; // The hash is passed as id in the URL
+    const { id } = req.params;
     const manifestFilePath = path.join(__dirname, '..', 'manifestStorage', 'manifest.json');
     const loreFilePath = path.join(__dirname, '..', 'manifestStorage', 'lore.json');
 
@@ -50,7 +49,7 @@ const getWeapon = (req, res) => {
             console.error('Error reading manifest.json:', err);
             return res.status(500).json({ error: 'Failed to read manifest.json' });
         }
-        
+
         try {
             const manifest = JSON.parse(manifestData);
             const weaponData = manifest[id];
@@ -97,65 +96,60 @@ const getWeapon = (req, res) => {
 // create favorite weapon
 const createFavorite = async (req, res) => {
     const { name, hash, loreHash, icon, weaponType, ammoType } = req.body;
-    console.log(req.body)
 
-    // add doc to db
     try {
         const weapon = await Weapon.create({ name, hash, loreHash, icon, weaponType, ammoType });
         res.status(200).json(weapon);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
-}
+};
 
 // create new weapon
 const createWeapon = async (req, res) => {
-    const {name, id, icon} = req.body
+    const { name, id, icon } = req.body;
 
-    // add doc to db
     try {
-        const weapon = await Weapon.create({name, id, icon})
-        res.status(200).json(weapon)
+        const weapon = await Weapon.create({ name, id, icon });
+        res.status(200).json(weapon);
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 // delete a weapon
 const deleteWeapon = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such weapon'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such weapon' });
     }
 
-    const weapon = await Weapon.findOneAndDelete({_id: id})
+    const weapon = await Weapon.findOneAndDelete({ _id: id });
 
-    if(!weapon) {
-        return res.status(404).json({error: 'No such weapon'})
+    if (!weapon) {
+        return res.status(404).json({ error: 'No such weapon' });
     }
 
-    res.status(200).json({weapon})
-}
+    res.status(200).json({ weapon });
+};
 
 // update a weapon
 const updateWeapon = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such weapon'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such weapon' });
     }
 
-    const weapon = await Weapon.findOneAndUpdate({_id: id}, {
-        ...req.body
-    })
+    const weapon = await Weapon.findOneAndUpdate({ _id: id }, { ...req.body });
 
-    if(!weapon) {
-        return res.status(404).json({error: 'No such weapon'})
+    if (!weapon) {
+        return res.status(404).json({ error: 'No such weapon' });
     }
 
-    res.status(200).json(weapon)
-}
+    res.status(200).json(weapon);
+};
 
 // Get all loadouts
 const getLoadouts = async (req, res) => {
@@ -167,15 +161,14 @@ const getLoadouts = async (req, res) => {
     }
 };
 
-
 // Create a new loadout
 const createLoadout = async (req, res) => {
     const { name, gear } = req.body;
-    
+
     if (!gear.kinetic && !gear.energy) {
         return res.status(400).json({ error: 'Loadout must include at least one primary or special weapon.' });
     }
-    
+
     if (!gear.heavy) {
         return res.status(400).json({ error: 'Loadout must include one heavy weapon.' });
     }
@@ -193,13 +186,45 @@ const createLoadout = async (req, res) => {
 const getFavorites = async (req, res) => {
     try {
         const favorites = await Weapon.find({});
-        console.log(favorites)
         res.render('favorites', { weaponsArr: favorites });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
+// delete favorite weapon
+const deleteFavorite = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such favorite' });
+    }
+
+    const favorite = await Weapon.findOneAndDelete({ _id: id });
+
+    if (!favorite) {
+        return res.status(404).json({ error: 'No such favorite' });
+    }
+
+    res.status(200).json({ favorite });
+};
+
+// delete loadout
+const deleteLoadout = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such loadout' });
+    }
+
+    const loadout = await Loadout.findOneAndDelete({ _id: id });
+
+    if (!loadout) {
+        return res.status(404).json({ error: 'No such loadout' });
+    }
+
+    res.status(200).json({ loadout });
+};
 
 module.exports = {
     createWeapon,
@@ -210,12 +235,7 @@ module.exports = {
     createFavorite,
     getLoadouts,
     createLoadout,
-    getFavorites
-    /* getBungieAcc,
-    getLoadout,
-    getProfile,
-    getCharacter,
-    getInventory,
-    deleteLoadout,
-    updateLoadout */
-}
+    getFavorites,
+    deleteFavorite,
+    deleteLoadout
+};

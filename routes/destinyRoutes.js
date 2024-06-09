@@ -1,5 +1,5 @@
-const express = require('express')
-const { 
+const express = require('express');
+const {
     createWeapon,
     getWeapons,
     getWeapon,
@@ -8,64 +8,44 @@ const {
     createFavorite,
     getLoadouts,
     createLoadout,
-    getFavorites
-    /* getBungieAcc,
-    getLoadout,
-    getProfile,
-    getCharacter,
-    getInventory,
-    deleteLoadout,
-    updateLoadout */
- } = require('../controllers/destinyController')
+    getFavorites,
+    deleteFavorite,
+    deleteLoadout
+} = require('../controllers/destinyController');
 
-const router = express.Router()
-
-// GET Bungie login
-// router.get('/bungieacc', getBungieAcc)
-
-// GET all weapons
-router.get('/', getWeapons)
-
-// GET single Weapon
-router.get('/:id', getWeapon)
+const router = express.Router();
 
 // GET all loadouts
-router.get('/loadouts', getLoadouts)
-
-// GET single loadout
-//router.get('/loadouts/:id', getLoadout)
+router.get('/loadouts', getLoadouts);
 
 // GET favorite weapons
-router.get('/favorites', getFavorites)
+router.get('/favorites', getFavorites);
 
-// GET profile info
-//router.get('profile', getProfile)
+// GET all weapons
+router.get('/', getWeapons);
 
-// GET character loadout
-//router.get('profile/:id', getCharacter)
-
-// GET character inventory
-//router.get('profile/:id/inv', getInventory)
-
-// POST new Weapon
-router.post('/', createWeapon)
+// GET single Weapon
+router.get('/:id', getWeapon);
 
 // POST new loadout
-router.post('/loadouts', createLoadout)
+router.post('/loadouts', createLoadout);
 
-// POST new favorites
-router.post('/favorites', createFavorite)
-
-// DELETE a Weapon
-router.delete('/:id', deleteWeapon)
+// POST new favorite
+router.post('/favorites', createFavorite);
 
 // DELETE a loadout
-//router.delete('/:id', deleteLoadout)
+router.delete('/loadouts/:id', deleteLoadout);
+
+// DELETE a favorite
+router.delete('/favorites/:id', deleteFavorite);
+
+// POST new Weapon
+router.post('/', createWeapon);
+
+// DELETE a Weapon
+router.delete('/:id', deleteWeapon);
 
 // UPDATE a Weapon
-router.put('/:id', updateWeapon)
+router.put('/:id', updateWeapon);
 
-// UPDATE a loadout
-//router.put('/:id', updateLoadout)
-
-module.exports = router
+module.exports = router;

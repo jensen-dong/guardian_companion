@@ -9,16 +9,22 @@
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Home</a>
-    <a class="navbar-brand" href="/loadouts">Loadouts</a>
-    <a class="navbar-brand" href="/favorites">Favorites</a>
+    <a class="navbar-brand" href="/api/destiny">Home</a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/api/destiny/favorites">Favorites</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/destiny/loadouts">Loadouts</a>
+      </li>
+    </ul>
     <a class="navbar-brand ml-auto" href="/logout">Logout</a>
   </nav>
   <div class="container mt-4">
     <h1 class="text-white">Favorite Weapons</h1>
     <div class="row">
       <% weaponsArr.forEach((weapon, index) => { %>
-        <div class="col-md-3 mb-4 weapon-card" style="display: none;">
+        <div class="col-md-3 mb-4 weapon-card">
           <div class="card h-100">
             <img src="<%= weapon.icon %>" class="weapon-icon card-img-top" alt="<%= weapon.name %>">
             <div class="card-body">
@@ -35,7 +41,7 @@
               </p>
               <div class="card-buttons">
                 <a class="btn btn-sm btn-info" href="/api/destiny/<%= weapon.hash %>">Details</a>
-                <button class="btn btn-sm btn-warning" onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Favorites</button>
+                <button class="btn btn-sm btn-warning" onclick="removeFromFavorites('<%= weapon._id %>')">Remove</button>
                 <button class="btn btn-sm btn-success" onclick="addWeaponToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Loadout</button>
               </div>
             </div>
