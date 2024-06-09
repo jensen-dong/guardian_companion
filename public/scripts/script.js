@@ -72,6 +72,27 @@ function submitLoadout() {
     });
 }
 
+function addToFavorites(name, hash, loreHash, icon, weaponType, ammoType) {
+    fetch('/api/destiny/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, hash, loreHash, icon, weaponType, ammoType })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error adding to favorites: ' + data.error);
+        } else {
+            alert('Added to favorites successfully');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 function removeFromFavorites(id) {
     fetch(`/api/destiny/favorites/${id}`, {
         method: 'DELETE'
@@ -101,9 +122,9 @@ function removeLoadout(id) {
         } else {
             alert('Loadout removed successfully');
             location.reload();
-            }
-            })
-            .catch(error => {
-            console.error('Error:', error);
-            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
