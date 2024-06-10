@@ -3,6 +3,7 @@ const Loadout = require('../models/loadoutModel');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios')
 
 // get all weapons
 const getWeapons = (req, res) => {
@@ -226,6 +227,24 @@ const deleteLoadout = async (req, res) => {
     res.status(200).json({ loadout });
 };
 
+const getXur = async (req, res) => {
+    try {
+      const response = await axios.get('https://www.bungie.net/platform/destiny2/vendors/?components=400', {
+        headers: {
+          'x-api-key': process.env.API_KEY
+        }
+      });
+  
+      const xurData = response.data.Response.vendors.data['2190858386'];
+      const nextRefreshDate = xurData.nextRefreshDate;
+  
+      res.render('xur', { nextRefreshDate });
+    } catch (error) {
+      console.error('Error fetching Xur data:', error);
+      res.status(500).json({ error: 'Failed to fetch Xur data' });
+    }
+  };
+
 module.exports = {
     createWeapon,
     getWeapons,
@@ -237,5 +256,6 @@ module.exports = {
     createLoadout,
     getFavorites,
     deleteFavorite,
-    deleteLoadout
+    deleteLoadout,
+    getXur
 };

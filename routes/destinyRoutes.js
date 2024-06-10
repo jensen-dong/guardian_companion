@@ -10,7 +10,8 @@ const {
     createLoadout,
     getFavorites,
     deleteFavorite,
-    deleteLoadout
+    deleteLoadout,
+    getXur
 } = require('../controllers/destinyController');
 const isLoggedIn = require('../middleware/isLoggedIn');
 
@@ -21,6 +22,9 @@ router.get('/', getWeapons);
 
 // GET single Weapon (public access)
 router.get('/:id', getWeapon);
+
+// GET Xur inventory
+router.get('/xur', getXur)
 
 // GET all loadouts (requires authentication)
 router.get('/loadouts', isLoggedIn, getLoadouts);
