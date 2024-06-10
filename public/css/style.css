@@ -109,3 +109,46 @@ body {
   color: white;
 }
 
+.contact {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.contact .heading {
+  font-size: 3rem;
+  color: #778da9;
+}
+
+.contact .input-box {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contact .input-box input {
+  padding: 10px;
+  font-size: 1.2rem;
+  border: 2px solid #778da9;
+  color: #778da9;
+  background-color: #1b263b;
+}
+
+.contact .btn {
+  background-color: #778da9;
+  border-color: #778da9;
+  color: #1b263b;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
+
+.contact .btn:hover {
+  background-color: #0d1b2a;
+  border-color: #0d1b2a;
+  color: #ffffff;
+}
+
+.alert {
+  margin: 20px auto;
+  width: 50%;
+  text-align: center;
+}

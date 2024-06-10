@@ -12,40 +12,41 @@ const {
     deleteFavorite,
     deleteLoadout
 } = require('../controllers/destinyController');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
 const router = express.Router();
 
-// GET all loadouts
-router.get('/loadouts', getLoadouts);
-
-// GET favorite weapons
-router.get('/favorites', getFavorites);
-
-// GET all weapons
+// GET all weapons (public access)
 router.get('/', getWeapons);
 
-// GET single Weapon
+// GET single Weapon (public access)
 router.get('/:id', getWeapon);
 
-// POST new loadout
-router.post('/loadouts', createLoadout);
+// GET all loadouts (requires authentication)
+router.get('/loadouts', isLoggedIn, getLoadouts);
 
-// POST new favorite
-router.post('/favorites', createFavorite);
+// GET favorite weapons (requires authentication)
+router.get('/favorites', isLoggedIn, getFavorites);
 
-// DELETE a loadout
-router.delete('/loadouts/:id', deleteLoadout);
+// POST new loadout (requires authentication)
+router.post('/loadouts', isLoggedIn, createLoadout);
 
-// DELETE a favorite
-router.delete('/favorites/:id', deleteFavorite);
+// POST new favorite (requires authentication)
+router.post('/favorites', isLoggedIn, createFavorite);
 
-// POST new Weapon
-router.post('/', createWeapon);
+// DELETE a loadout (requires authentication)
+router.delete('/loadouts/:id', isLoggedIn, deleteLoadout);
 
-// DELETE a Weapon
-router.delete('/:id', deleteWeapon);
+// DELETE a favorite (requires authentication)
+router.delete('/favorites/:id', isLoggedIn, deleteFavorite);
 
-// UPDATE a Weapon
-router.put('/:id', updateWeapon);
+// POST new Weapon (requires authentication)
+router.post('/', isLoggedIn, createWeapon);
+
+// DELETE a Weapon (requires authentication)
+router.delete('/:id', isLoggedIn, deleteWeapon);
+
+// UPDATE a Weapon (requires authentication)
+router.put('/:id', isLoggedIn, updateWeapon);
 
 module.exports = router;
