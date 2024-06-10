@@ -1,50 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= weapon.name %> - Weapon Details</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>
+    <%= weapon.name %> - Weapon Details
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="weapon-detail-page">
-  <% include partials/navbar %>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">WeaponApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/api/destiny">Home</a>
+          </li>
+          <% if (currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/destiny/favorites">Favorites</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/destiny/loadouts">Loadouts</a>
+            </li>
+            <% } %>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <% if (!currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/signup">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/auth/login">Sign In</a>
+            </li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/logout">Logout</a>
+              </li>
+              <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div class="container mt-4">
     <div class="row">
       <div class="col-md-4">
         <% if (weapon.icon) { %>
           <img src="https://www.bungie.net<%= weapon.icon %>" class="weapon-icon-full" alt="<%= weapon.name %>">
-        <% } %>
+          <% } %>
       </div>
       <div class="col-md-8">
         <% if (weapon.name) { %>
-          <h1><%= weapon.name %></h1>
-        <% } %>
-        <% if (weapon.weaponType) { %>
-          <h2>Weapon Type: <%= weapon.weaponType %></h2>
-        <% } %>
-        <p><strong>Ammo Type:</strong> 
-          <% if (weapon.ammoType === 1) { %>
-            Primary
-          <% } else if (weapon.ammoType === 2) { %>
-            Special
-          <% } else if (weapon.ammoType === 3) { %>
-            Heavy
-          <% } else { %>
-            Unknown
+          <h1>
+            <%= weapon.name %>
+          </h1>
           <% } %>
-        </p>
-        <h3>Lore Subtitle: <%= loreSubtitle %></h3>
-        <p><%= loreDescription %></p>
-        <div class="mt-4">
-          <button class="btn btn-warning" onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add to Favorites</button>
-          <button class="btn btn-success" onclick="addWeaponToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add to Loadout</button>
-        </div>
+            <% if (weapon.weaponType) { %>
+              <h2>Weapon Type: <%= weapon.weaponType %>
+              </h2>
+              <% } %>
+                <p><strong>Ammo Type:</strong>
+                  <% if (weapon.ammoType===1) { %>
+                    Primary
+                    <% } else if (weapon.ammoType===2) { %>
+                      Special
+                      <% } else if (weapon.ammoType===3) { %>
+                        Heavy
+                        <% } else { %>
+                          Unknown
+                          <% } %>
+                </p>
+                <h3>Lore Subtitle: <%= loreSubtitle %>
+                </h3>
+                <p>
+                  <%= loreDescription %>
+                </p>
+                <div class="mt-4">
+                  <button class="btn btn-warning"
+                    onclick="addToFavorites('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add
+                    to Favorites</button>
+                  <button class="btn btn-success"
+                    onclick="addWeaponToLoadout('<%= weapon.name %>', '<%= weapon.hash %>', '<%= weapon.loreHash %>', '<%= weapon.icon %>', '<%= weapon.weaponType %>', '<%= weapon.ammoType %>')">Add
+                    to Loadout</button>
+                </div>
       </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
   <script src="/scripts/script.js"></script>
 </body>
+
 </html>
