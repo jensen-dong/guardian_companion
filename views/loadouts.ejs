@@ -8,18 +8,32 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/api/destiny">Home</a>
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/api/destiny/favorites">Favorites</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/api/destiny/loadouts">Loadouts</a>
-      </li>
-    </ul>
-    <a class="navbar-brand ml-auto" href="/logout">Logout</a>
-  </nav>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">WeaponApp</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/destiny/favorites">Favorites</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/api/destiny/loadouts">Loadouts</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
   <div class="container mt-4">
     <h1 class="text-white">Loadouts</h1>
     <div class="row">
@@ -30,17 +44,17 @@
               <h4 class="card-title"><%= loadout.name %></h4>
               <div class="mb-2">
                 <strong>Kinetic:</strong>
-                <img src="<%= loadout.gear.kinetic.icon %>" class="weapon-icon" alt="<%= loadout.gear.kinetic.name %>">
+                <img src="https://www.bungie.net<%= loadout.gear.kinetic.icon %>" class="weapon-icon" alt="<%= loadout.gear.kinetic.name %>">
                 <%= loadout.gear.kinetic.name %>
               </div>
               <div class="mb-2">
                 <strong>Energy:</strong>
-                <img src="<%= loadout.gear.energy.icon %>" class="weapon-icon" alt="<%= loadout.gear.energy.name %>">
+                <img src="https://www.bungie.net<%= loadout.gear.energy.icon %>" class="weapon-icon" alt="<%= loadout.gear.energy.name %>">
                 <%= loadout.gear.energy.name %>
               </div>
               <div class="mb-2">
                 <strong>Heavy:</strong>
-                <img src="<%= loadout.gear.heavy.icon %>" class="weapon-icon" alt="<%= loadout.gear.heavy.name %>">
+                <img src="https://www.bungie.net<%= loadout.gear.heavy.icon %>" class="weapon-icon" alt="<%= loadout.gear.heavy.name %>">
                 <%= loadout.gear.heavy.name %>
               </div>
               <button class="btn btn-sm btn-danger" onclick="removeLoadout('<%= loadout._id %>')">Delete</button>
